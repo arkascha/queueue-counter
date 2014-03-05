@@ -1,0 +1,349 @@
+/* the two controls areas left and right of the display */
+.controls {
+	position: relative;
+	display: inline-block;
+	z-index: 100;
+	width:    8%;
+	min-width: 110px;
+	max-width: 116px;
+	height: 100%;
+	margin: 40px 0;
+	color: whitesmoke;
+	font: small-caps bold 13px 'Eagle Lake';
+	text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+	line-height: 1;
+}
+.controls-left {
+	position: absolute;
+	left: -1%;
+}
+.controls-right {
+	position: absolute;
+	right: -1.1%;
+}
+.controls-top {
+	position: absolute;
+	clear: left;
+	vertical-align: top;
+}
+.controls-bottom {
+	position: absolute;
+	bottom: -15px;
+	clear: left;
+}
+.controls-row {
+	display: inline-block;
+	margin: 2px 0 4px;
+}
+
+.controls > label {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	font-size: 160%;
+}
+
+.controls span > label {
+	position: relative;
+	display: inline-block;
+	margin: 4px 0 2px;
+	padding: 0;
+}
+
+
+
+
+/* the single control widgets */
+.controls .control {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.controls .control input {
+	background-color: whitesmoke;
+}
+
+
+
+
+.controls .control .ui-slider-horizontal {
+	display: inline-block;
+	height: 0.2em !important;
+	background-color: whitesmoke;
+	border: 2px ridge rgba(245,245,245,1);
+	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+}
+.controls .control .ui-slider-horizontal .ui-slider-handle:hover { cursor: pointer; }
+.controls .control .ui-slider-horizontal .ui-slider-handle {
+	display: block;
+	height: 12px;
+	width:  12px;
+	position: absolute;
+	top:  -5px;
+	margin-left: -8px;
+	background: url('3rdparty/img/handle.png') repeat top left;
+	background-size: 12px 12px;
+	-moz-border-radius:    6px;
+	-webkit-border-radius: 6px;
+	border-radius:         6px;
+}
+.controls .control .ui-slider-labels .ui-slider-label-ticks {
+	height: 0;
+	color: whitesmoke;
+}
+.controls .control .ui-slider-labels .ui-slider-label-ticks span {
+	top: 4px;
+	font-size: 60%;
+}
+
+
+
+
+.controls .control .ui-buttonset {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+.controls .control .ui-buttonset .ui-button {
+	display: inline-block;
+	top: 0;
+	left: 0;
+	margin: 2px -2px;
+	padding: 0px;
+	border: 2px ridge whitesmoke;
+	box-shadow: 2px 3px 4px #4a5056, 2px 2px 4px gray;
+	border-radius: 4px;
+}
+.controls .control .ui-buttonset .ui-button.ui-state-active {
+	border: 2px ridge lightgray;
+	box-shadow: 1px 1px 0 #4a5056, 1px 1px 2px gray;
+}
+.controls .control .ui-buttonset .ui-button-text                   { padding: 0 2px; font: small-caps bold 80% 'Eagle Lake'; color: whitesmoke; }
+.controls .control .ui-buttonset .ui-state-default .ui-button-text { background-color: silver; }
+.controls .control .ui-buttonset .ui-state-active  .ui-button-text { background-color: whitesmoke; }
+.controls .control .ui-buttonset .ui-state-hover   .ui-button-text { background-color: lightgray; }
+
+
+
+
+.controls .control .ui-switch {
+	border: 0;
+}
+.controls .control .ui-switch-handle {
+	display: block;
+	height: 30px;
+	width: 30px;
+	position: absolute;
+	top: -4px;
+	left: -15px;
+	background: url('3rdparty/img/handle.png') repeat top left;
+	background-size: 30px 30px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+}
+.controls .control .ui-switch-middle {
+	border: 7px ridge rgba(245,245,245,1);
+	box-shadow: 2px 2px 5px #4a5056, 2px 2px 3px gray;
+}
+.controls .control .ui-switch-on  { color: gray; background: whitesmoke; font: small-caps bold 80% 'Eagle Lake'; }
+.controls .control .ui-switch-off { background: gray; font: small-caps bold 80% 'Eagle Lake'; }
+
+
+
+.controls .control.sparkline .hotspot {
+	width: 40px;
+	height: 20px;
+	margin: 4px 0;
+}
+.controls .control.sparkline .hotspot canvas {
+	padding: 0 1px;
+	border: 2px ridge whitesmoke;
+	box-shadow: 2px 3px 4px #4a5056, 2px 2px 4px gray;
+	border-radius: 4px;
+}
+
+
+
+.controls .control.spinner {
+	border: 2px ridge rgba(245,245,245,1);
+	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+	border-radius: 3px;
+	background: whitesmoke;
+	margin: 2px 0;
+}
+.controls .control.spinner span.ui-widget-content {
+	background: whitesmoke;
+}
+.controls .control.spinner.number input {
+	width: 70px;
+	padding: 0;
+	font: small-caps bold 90% 'Eagle Lake';
+	text-align: center;
+}
+.controls .control.spinner.number input:focus {
+    outline: 0;
+}
+
+
+.controls .control.knob {
+	width:  50px;
+	height: 50px;
+	margin-right: 3px;
+	margin-bottom: 33px;
+}
+.controls .control.knob .knob {
+	width:  50px;
+	height: 50px;
+}
+.controls .control.knob .knob .top {
+	width:  inherit;
+	height: inherit;
+	background: url('3rdparty/img/knob.png') no-repeat;
+}
+.controls .control.knob .knob .top:after {
+	background-color: whitesmoke;
+}
+.controls .control.knob .knob .top:hover {
+	cursor: pointer !important;
+}
+.controls .control.knob .knob .base {
+	width: inherit;
+	height: inherit;
+	box-shadow: 2px 3px 3px #4a5056,3px 3px 5px gray;
+}
+
+
+
+
+
+
+/* slider widget in general */
+.controls .control.slider {
+}
+
+.controls .control.slider .ui-slider-wrapper {
+/* 	width: 100% !important; */
+	height: 34px;
+}
+.controls .control.slider .ui-slider-range {
+	background: linear-gradient(top, #ffffff 0%,#eaeaea 100%);
+	position: absolute;
+	top: 0;
+	height: 100%;
+	border: 0;
+	border-radius: 25px;
+}
+
+
+
+
+
+
+/* color choosers */
+.controls .control.color { display: block; }
+.controls .control.color .color-channel .hotspot       { margin: 6px 0 0; }
+.controls .control.color .color-channel-red .hotspot   { background-color: red;   }
+.controls .control.color .color-channel-green .hotspot { background-color: green; }
+.controls .control.color .color-channel-blue .hotspot  { background-color: blue;  }
+.controls .control.color .color-preview {
+	display: inline-block;
+	float: left;
+	margin: 0 8px 0 0;
+	padding: 0;
+	width: 10px;
+	height: 55px;
+	border: 2px ridge rgba(245,245,245,1);
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+}
+.controls .control.color .ui-slider-horizontal {
+	width: 80px;
+	height: 0.2em !important;
+}
+
+
+
+
+
+
+#wCounterArity {}
+#wCounterArity .ui-slider-wrapper { width: 100px; }
+#wCounterArity .ui-slider-labels  { left: -3px; }
+#wCounterState {}
+#wCounterTrigger {
+	width: 15px;
+	height: 15px;
+	background-color: rgba(245,245,245,0.2);
+	border: 0px;
+	border: 7px ridge rgba(245,245,245,1);
+	box-shadow: 2px 2px 5px #4a5056, 2px 2px 3px gray;
+	border-radius: 15px;
+}
+#wCounterValue {}
+#wCounterSleep {}
+#wCounterVariance {}
+#wDisplayType { }
+#wCornerType {}
+#wColorActive {}
+#wColorPassive {}
+#wDigitHeigth {}
+#wDigitWidth {}
+#wDigitAngle {}
+#wDigitDistance {}
+#wSegmentCount ui-button { width: 34px; }
+#wSegmentWidth {}
+#wSegmentDistance {}
+#wTimerSpeed {}
+#wTimerRange {}
+#wToggleFullscreen {
+	left: 20px;
+}
+#wToggleFullscreen img {
+  width: 64px;
+	height: 64px;
+	border: 2px ridge rgba(245,245,245,1);
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+}
+#wWallType {
+	margin: 0 1px;
+}
+#wWallType .ui-button {
+	top: 0;
+  left: 0;
+}
+#wWallType .ui-button-text {
+	width: 0;
+  height: 0;
+	padding: 0;
+}
+#wWallType div label {
+	content: '&nbsp;';
+	width: 16px;
+	height: 16px;
+	background-size: 150% !important;
+}
+#wWallType div label:nth-of-type(01) { background: url("background/wall-01.jpg") repeat; }
+#wWallType div label:nth-of-type(02) { background: url("background/wall-02.jpg") repeat; }
+#wWallType div label:nth-of-type(03) { background: url("background/wall-03.jpg") repeat; }
+#wWallType div label:nth-of-type(04) { background: url("background/wall-04.jpg") repeat; }
+#wWallType div label:nth-of-type(05) { background: url("background/wall-05.jpg") repeat; }
+#wWallType div label:nth-of-type(06) { background: url("background/wall-06.jpg") repeat; }
+#wWallType div label:nth-of-type(07) { background: url("background/wall-07.jpg") repeat; }
+#wWallType div label:nth-of-type(08) { background: url("background/wall-08.jpg") repeat; }
+#wWallType div label:nth-of-type(09) { background: url("background/wall-09.jpg") repeat; }
+#wWallType div label:nth-of-type(10) { background: url("background/wall-10.jpg") repeat; }
+#wWallType div label:nth-of-type(11) { background: url("background/wall-11.jpg") repeat; }
+#wWallType div label:nth-of-type(12) { background: url("background/wall-12.jpg") repeat; }
+#wWallType div label:nth-of-type(13) { background: url("background/wall-13.jpg") repeat; }
+#wWallType div label:nth-of-type(14) { background: url("background/wall-14.jpg") repeat; }
+#wWallType div label:nth-of-type(15) { background: url("background/wall-15.jpg") repeat; }
+#wWallType div label:nth-of-type(16) { background: url("background/wall-16.jpg") repeat; }
+#wWallType div label:nth-of-type(17) { background: url("background/wall-17.gif") repeat; }
+#wWallType div label:nth-of-type(18) { background: url("background/wall-18.gif") repeat; }
+#wWallType div label:nth-of-type(19) { background: url("background/wall-19.gif") repeat; }
+#wWallType div label:nth-of-type(20) { background: url("background/wall-20.gif") repeat; }

@@ -1,0 +1,136 @@
+html {
+	width: 100%;
+	height: 90%;
+	margin: 0;
+	padding: 3% 0 0 0;
+}
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: url("background/wall-02.jpg") repeat;
+	-webkit-transition: background-image 1s;
+	-khtml-transition:  background-image 1s;
+	-moz-transition:    background-image 1s;
+	-ms-transition:     background-image 1s;
+	-o-transition:      background-image 1s;
+	transition:         background-image 1s;
+	-webkit-user-select: none;
+	-khtml-user-select:  none;
+	-moz-user-select:    none;
+	-ms-user-select:     none;
+	-o-user-select:      none;
+	user-select:         none;
+}
+
+div {
+	margin: 0;
+	padding: 0;
+}
+
+#board {
+	position: relative;
+	width: 90%;
+	height: 90%;
+	margin: auto;
+	top:2%;
+	right:0;
+	bottom:0;
+	left:0;
+}
+
+#wrapper {
+	position: relative;
+	margin: 0;
+}
+
+.area {
+	content: ' ';
+}
+.area:before {
+	content: ' ';
+}
+.area:after {
+	content: ' ';
+}
+
+.top {
+	position: relative;
+	width: 100%;
+	height: 40px;
+	background: url("background/plexi-top-mid.png") repeat;
+}
+.top:before {
+	position: absolute;
+	left: -40px;
+	width: 40px;
+	height: 40px;
+	background: url("background/plexi-top-left.png") no-repeat;
+}
+.top:after {
+	position: absolute;
+	right: -40px;
+	width: 40px;
+	height: 40px;
+	background: url("background/plexi-top-right.png") no-repeat;
+}
+.mid {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background: url("background/plexi-mid-mid.png") repeat;
+	text-align: center;
+	vertical-align: middle;
+}
+.mid:before {
+	position: absolute;
+	left: -40px;
+	width: 40px;
+	height: 100%;
+	background: url("background/plexi-mid-left.png") repeat-y;
+}
+.mid:after {
+	position: absolute;
+	right: -40px;
+	width: 40px;
+	height: 100%;
+	background: url("background/plexi-mid-right.png") repeat-y;
+}
+.bot {
+	position: relative;
+	width: 100%;
+	height: 40px;
+	background: url("background/plexi-bot-mid.png") repeat;
+}
+.bot:before {
+	position: absolute;
+	left: -40px;
+	width: 40px;
+	height: 40px;
+	background: url("background/plexi-bot-left.png") no-repeat;
+}
+.bot:after {
+	position: absolute;
+	right: -40px;
+	width: 40px;
+	height: 40px;
+	background: url("background/plexi-bot-right.png") no-repeat;
+}
+
+#frame {
+	position: relative;
+	display: inline-block;
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+
+#display {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	left: -40px;
+}
