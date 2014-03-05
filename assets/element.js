@@ -612,8 +612,8 @@ ControlElements = function() {
 			toggled:      toggled
 		};
 		var Widget = new ControlWidgets.ButtonWithState( '#wToggleFullscreen', options );
-		Target.on( 'fscreenopen',  function(){ Target.find('.hotspot img').attr('src','3rdparty/img/fullscreen-off.png')} );
-		Target.on( 'fscreenclose', function(){ Target.find('.hotspot img').attr('src','3rdparty/img/fullscreen-on.png' )} );
+		Target.on( 'fscreenopen',  function(){ Target.find('.hotspot img').attr('src','assets/img/fullscreen-off.png')} );
+		Target.on( 'fscreenclose', function(){ Target.find('.hotspot img').attr('src','assets/img/fullscreen-on.png' )} );
 
 		function switchOff() {
 			toggle( false );
@@ -648,8 +648,8 @@ ControlElements = function() {
 
 	function WallType( init ) {
 		var options = {
-			value:  init.value || 'background/wall-02.jpg',
-			change: function(event) { setValue( event.target.value || 'background/wall-02.jpg' ); }
+			value:  init.value || 'assets/background/wall-02.jpg',
+			change: function(event) { setValue( event.target.value || 'assets/background/wall-02.jpg' ); }
 		};
 		var Widget = new ControlWidgets.ButtonSet( '#wWallType', options );
 

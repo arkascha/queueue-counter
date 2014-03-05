@@ -84,7 +84,7 @@
 	position: absolute;
 	top:  -5px;
 	margin-left: -8px;
-	background: url('3rdparty/img/handle.png') repeat top left;
+	background: url('img/handle.png') repeat top left;
 	background-size: 12px 12px;
 	-moz-border-radius:    6px;
 	-webkit-border-radius: 6px;
@@ -139,7 +139,7 @@
 	position: absolute;
 	top: -4px;
 	left: -15px;
-	background: url('3rdparty/img/handle.png') repeat top left;
+	background: url('img/handle.png') repeat top left;
 	background-size: 30px 30px;
 	-moz-border-radius: 15px;
 	-webkit-border-radius: 15px;
@@ -202,7 +202,7 @@
 .controls .control.knob .knob .top {
 	width:  inherit;
 	height: inherit;
-	background: url('3rdparty/img/knob.png') no-repeat;
+	background: url('img/knob.png') no-repeat;
 }
 .controls .control.knob .knob .top:after {
 	background-color: whitesmoke;
