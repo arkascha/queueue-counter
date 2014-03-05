@@ -82,11 +82,6 @@ ControlWidgets = function() {
 
 		function toggleState( value ) {
 			state = value || ! state;
-			// render / refresh
-// 			if ( state )
-// 				options.switchOn.call( widget );
-// 			else
-// 				options.switchOff.call( widget );
 			// signal toggle
 			options.toggled( state );
 			return state;
@@ -269,12 +264,7 @@ ControlWidgets = function() {
 
 
 	function Slider( selector, options ) {
-		var options = $.extend({
-// 			change: function( event,ui ){},
-// 			slide:  function( event,ui ){},
-// 			start:  function( event,ui ){},
-// 			stop:   function( event,ui ){}
-		}, options||{} );
+		var options = $.extend({}, options||{} );
 		var hotspot = $( selector ).find( '.hotspot' ).slider( options );
 
 		function getValue() {
