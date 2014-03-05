@@ -245,7 +245,7 @@
 
 /* color choosers */
 .controls .control.color { display: block; }
-.controls .control.color .color-channel .hotspot       { margin: 6px 0 0; }
+.controls .control.color .color-channel .hotspot       { margin: 6px 0 0; background: none; }
 .controls .control.color .color-channel-red .hotspot   { background-color: red;   }
 .controls .control.color .color-channel-green .hotspot { background-color: green; }
 .controls .control.color .color-channel-blue .hotspot  { background-color: blue;  }
