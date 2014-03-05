@@ -259,6 +259,7 @@
 	border: 2px ridge rgba(245,245,245,1);
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+	background: none; 
 }
 .controls .control.color .ui-slider-horizontal {
 	width: 80px;
