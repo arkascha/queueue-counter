@@ -1,14 +1,14 @@
-queueue-counter
+queueueue-counter
 ===============
 
 This package is a simple counter. It simulates a queue management systems display, those number boards counting up until it is your turn. 
 
-![Example](http://github.com/arkascha/queueue-counter/raw/master/doc/snapshot-1.jpg)
+![Example](http://github.com/arkascha/queueueue-counter/raw/master/doc/snapshot-1.jpg)
 
 ## Purpose
 The package was developed as part of a longer running project and serves testing purposes. This is why its counting logic and optical appearance both can be tuned in a flexible manner. The technical approach is an in-page app running in a web browser. It can be served by a web server but does not require such. It is fine to just open the top level index.html page from within the local file system. 
 
-![Example](http://github.com/arkascha/queueue-counter/raw/master/doc/snapshot-2.jpg)
+![Example](http://github.com/arkascha/queueueue-counter/raw/master/doc/snapshot-2.jpg)
 
 ## Features
 - general purpose counter (counting up only)
