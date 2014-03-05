@@ -495,10 +495,10 @@ ControlElements = function() {
 
 	function SegmentWidth( init ) {
 		var options = {
-			min:    init.min   ||  1,
-			max:    init.max   || 20,
-			step:   init.step  ||  1,
-			value:  init.value || 10,
+			min:    init.min   ||   1,
+			max:    init.max   ||  20,
+			step:   init.step  || 0.1,
+			value:  init.value ||  10,
 			change: function( value ) { Board.Display.setParam( 'segmentWidth', value ); }
 		};
 		var Widget = new ControlWidgets.Knob( '#wSegmentWidth', options );

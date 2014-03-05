@@ -229,7 +229,7 @@ ControlWidgets = function() {
 			var min   = options.min,
 					max   = options.max,
 					delta = options.delta;
-			return Math.max( min, Math.min( max, Math.round(ratio*(max-min)) ) ) + delta;
+			return Math.max( min, Math.min( max, ratio*(max-min) ) ) + delta;
 		}
 
 		function ratioFromValue( value ) {
