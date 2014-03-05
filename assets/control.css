@@ -6,8 +6,8 @@
 	width:    8%;
 	min-width: 110px;
 	max-width: 116px;
+	top: 20px;
 	height: 100%;
-	margin: 40px 0;
 	color: whitesmoke;
 	font: small-caps bold 13px 'Eagle Lake';
 	text-shadow: 0 1px 1px rgba(0,0,0,0.5);
@@ -15,25 +15,25 @@
 }
 .controls-left {
 	position: absolute;
-	left: -1%;
+	left: -0.5%;
 }
 .controls-right {
 	position: absolute;
-	right: -1.1%;
+	right: -1.2%;
 }
 .controls-top {
 	position: absolute;
 	clear: left;
-	vertical-align: top;
 }
 .controls-bottom {
 	position: absolute;
-	bottom: -15px;
+	bottom: -30px;
 	clear: left;
+	vertical-align: bottom;
 }
 .controls-row {
 	display: inline-block;
-	margin: 2px 0 4px;
+	margin: 2px 0 2px;
 }
 
 .controls > label {
