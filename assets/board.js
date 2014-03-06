@@ -1,7 +1,7 @@
 Board = function() {
 	var Controls = {
 		CounterArity    : {},
-		CounterHistory : {},
+		CounterHistory  : {},
 		CounterState    : {},
 		CounterTrigger  : {},
 		CounterValue    : {},
@@ -49,7 +49,7 @@ Board = function() {
 		this.Controls.TimerSpeed       = new ControlElements.TimerSpeed      ( { value:1 } );
 		this.Controls.TimerRange       = new ControlElements.TimerRange      ( { value:0 } );
 		this.Controls.ToggleFullscreen = new ControlElements.ToggleFullscreen( { });
-		this.Controls.WallType         = new ControlElements.WallType        ( { value:3 } );
+		this.Controls.WallType         = new ControlElements.WallType        ( { value:'assets/background/wall-02.jpg' } );
 		// blank the display initially
 		this.Display.setBlank();
 	}

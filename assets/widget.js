@@ -9,7 +9,7 @@ ControlWidgets = function() {
 		// bind change event
 		hotspot.buttonset().bind( 'change', options.change );
 		// activate specified option
-		hotspot.find( '[value='+options.value+']+label' ).click();
+		hotspot.find( '[value="'+options.value+'"]+label' ).click();
 		hotspot.buttonset( 'refresh' );
 
 		function getValue() {
@@ -18,8 +18,9 @@ ControlWidgets = function() {
 		}
 
 		function setValue( value ) {
-			hotspot.find( '[value='+value+']+label' ).click();
+			hotspot.find( '[value="'+value+'"]+label' ).click();
 			hotspot.buttonset( 'refresh' );
+			return getValue();
 		}
 
 		return {
@@ -27,6 +28,34 @@ ControlWidgets = function() {
 			setValue: setValue
 		}
 	} // ButtonSet
+
+
+
+
+	function Button( selector, options ) {
+		var options = $.extend({
+			click: function(){}
+		}, options||{} );
+		var widget  = $( selector );
+		var hotspot = $( selector ).find( '.hotspot img' );
+		hotspot.bind( 'click', click );
+
+		function click() {
+			clicked();
+			options.click();
+		}
+
+		function clicked() {
+			// flash button by changing the background color for 100 msecs
+			widget.css( 'background-color', 'whitesmoke' );
+			setTimeout( function(){ widget.css( 'background-color', 'transparent' ); }, 100 );
+		}
+
+		return {
+			click:   click,
+			clicked: clicked
+		}
+	} // Button
 
 
 
@@ -273,6 +302,7 @@ ControlWidgets = function() {
 
 		function setValue( value ) {
 			hotspot.slider( 'value', value );
+			return getValue();
 		}
 
 		return {
@@ -300,7 +330,8 @@ ControlWidgets = function() {
 		}
 
 		function setValue( value ) {
-			return hotspot.labeledslider( 'value', value );
+			hotspot.labeledslider( 'value', value );
+			return getValue();
 		}
 
 		return {
@@ -364,6 +395,7 @@ ControlWidgets = function() {
 
 		function setValue( value ) {
 			hotspot.spinner( 'value', value );
+			return getValue();
 		}
 
 		return {
@@ -379,9 +411,9 @@ ControlWidgets = function() {
 
 	function Switch( selector, options ) {
 		var options = $.extend( {
-			value: 1,
-			change: function( event,ui ){},
-			size: 40,
+			value:   1,
+			change:  function( event,ui ){},
+			size:    40,
 			strings: ['-1-','-0-']
 		}, options||{} );
 		// morph html input into a jquery ui hotspot
@@ -392,7 +424,7 @@ ControlWidgets = function() {
 		hotspot.data( 'switch' ).trigger('switch:slide', options.value);
 
 		function getValue() {
-			return hotspot.switchify( 'val' );
+			return hotspot.switchify().val();
 		}
 
 		function setValue( value ) {
@@ -409,6 +441,7 @@ ControlWidgets = function() {
 
 
 	return {
+		Button:            Button,
 		ButtonSet:         ButtonSet,
 		ButtonWithLight:   ButtonWithLight,
 		ButtonWithState:   ButtonWithState,

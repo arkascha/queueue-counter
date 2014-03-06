@@ -168,6 +168,7 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
+			value = value || options.value;
 			if (collection.indexOf(value))
 				Widget.setValue( value );
 			else
@@ -197,7 +198,9 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
+			value = value || options.value;
 			current = (1==value) ? 1 : ( (-1==value) ? -1 : 0 );
+			return getValue();
 		}
 
 		function tick() {
@@ -258,7 +261,9 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			value = value || options.value;
+			Widget.setValue( value );
+			return getValue();
 		}
 
 		return {
@@ -339,13 +344,14 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			value = parseInt( value ) || 0;
+			value = parseInt( value ) || options.value;
 			// accept new value, but keep it in range
 			value = value % (getMax()+1);
 			// update internal widget value
 			Widget.setValue( value );
 			// visualize new value
 			Board.Display.setValue( value );
+			return getValue();
 		}
 
 		return {
@@ -381,9 +387,14 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value - delta );
+			value = value || options.value;
+			Widget.setValue( value - delta );
+			return getValue();
 		}
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitAngle
 
 
@@ -404,10 +415,15 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			value = value || options.value;
+			Widget.setValue( value );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitDistance
 
 
@@ -427,10 +443,15 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			value = value || options.value;
+			Widget.setValue( value );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitHeight
 
 
@@ -450,10 +471,15 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			value = value || options.value;
+			Widget.setValue( value );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitWidth
 
 
@@ -476,10 +502,12 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
+			value = value || options.value;
 			if (collection.indexOf(value))
 				Widget.setValue( value );
 			else
 				Widget.setValue( SegmentDisplay.SevenSegment );
+			return getValue();
 		}
 
 		Board.Display.setParam( 'segmentCount', options.value );
@@ -508,10 +536,15 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			value = value || options.value;
+			Widget.setValue( value );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // SegmentWidth
 
 
@@ -532,10 +565,15 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			value = value || options.value;
+			Widget.setValue( value );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // SegmentDistance
 
 
@@ -562,6 +600,7 @@ ControlElements = function() {
 			value = parseInt( value ) || options.value;
 			Widget.setValue( value );
 			Board.Timer.Range = value;
+			return getValue();
 		}
 
 		return {
@@ -595,6 +634,7 @@ ControlElements = function() {
 			value = parseInt( value ) || options.value;
 			Widget.setValue( value );
 			Board.Timer.Speed = value;
+			return getValue();
 		}
 
 		return {
@@ -652,16 +692,29 @@ ControlElements = function() {
 			change: function(event) { setValue( event.target.value || 'assets/background/wall-02.jpg' ); }
 		};
 		var Widget = new ControlWidgets.ButtonSet( '#wWallType', options );
+		setValue( options.value );
+
+		function getValue() {
+			if ( Widget )
+				return Widget.getValue();
+			else
+				return options.value;
+		}
 
 		function setValue( value ) {
-				$( 'body' ).css( 'background', 'url("' + value + '") repeat' );
+			value = value || options.value;
+			$( 'body' ).css( 'background', 'url("' + value + '") repeat' );
+			return getValue();
 		}
 
 		return {
-			Widget:   Widget,
-			setValue: setValue
+			getValue: getValue,
+			setValue: setValue,
+			Widget:   Widget
 		}
 	} // WallType
+
+
 
 
 	return {
