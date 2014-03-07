@@ -65,9 +65,9 @@ ControlWidgets = function() {
 			click: function(){}
 		}, options||{} );
 		var widget  = $( selector );
+		widget.bind( 'click', click );
 		var background = widget.css( 'background-color' );
 		var hotspot = $( selector ).find( '.hotspot' );
-		widget.bind( 'click', click );
 
 		function click() {
 			options.click();

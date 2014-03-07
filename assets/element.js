@@ -281,7 +281,7 @@ ControlElements = function() {
 
 	function CounterTrigger( init ) {
 		var options = {
-			'click': clicked
+			click: clicked
 		};
 		var Widget = new ControlWidgets.ButtonWithLight( '#wCounterTrigger', options );
 
