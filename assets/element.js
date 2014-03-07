@@ -621,8 +621,7 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			Widget.setValue( value || options.value || 0 );
-			return getValue();
+			return Widget.setValue( value || options.value || 0 );
 		}
 
 		return {
@@ -649,8 +648,7 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			Widget.setValue( value || options.value || 0 );
-			return getValue();
+			return Widget.setValue( value || options.value || 0 );
 		}
 
 		return {
