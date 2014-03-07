@@ -12,6 +12,7 @@
 		<script type='text/javascript' src="3rdparty/js/jquery-sparkline.min.js"></script>
 		<script type='text/javascript' src="3rdparty/js/jquery-transform.js"></script>
 		<script type="text/javascript" src="3rdparty/js/jquery-fullscreen.min.js"></script>
+		<script type="text/javascript" src="3rdparty/js/filereader.js"></script>
 		<script type="text/javascript" src="3rdparty/js/segment.js"></script>
 		<script type="text/javascript" src="assets/widget.js"></script>
 		<script type="text/javascript" src="assets/element.js"></script>
@@ -136,9 +137,6 @@
 						</span>
 					</div>
 
-				</div>
-				<div class="controls-bottom">
-
 					<div class="controls-row">
 						<span id="wWallType" class="control radio">
 							<label for="wWallType">Wall Type</label>
@@ -168,10 +166,24 @@
 					</div>
 
 				</div>
+				<div class="controls-bottom">
+
+					<div class="controls-row">
+						<!-- the 'export profile' button -->
+						<span id="wProfileExport" class="control button">
+							<img src="assets/img/profile-export.png">
+						</span>
+						<!-- the 'import profile' button -->
+						<span id="wProfileImport" class="control button">
+							<img src="assets/img/profile-import.png">
+						</span>
+					</div>
+
+				</div>
 			</div>
 
 			<!-- the right controls -->
-			<div id="LociaAspects" class="controls controls-right">
+			<div id="LogicalAspects" class="controls controls-right">
 				<label for="LogicAspects">Logic</label>
 
 				<div class="controls-top">

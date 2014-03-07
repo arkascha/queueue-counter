@@ -77,7 +77,7 @@ ControlElements = function() {
 		}
 
 		function setChannels( channels ) {
-			return Widget.getChannels( channels );
+			return Widget.setChannels( channels );
 		}
 
 		function getRGBA() {
@@ -85,7 +85,7 @@ ControlElements = function() {
 		}
 
 		function setRGBA( rgba ) {
-			return Widget.getRGBA( rgba );
+			return Widget.setRGBA( rgba );
 		}
 
 		function changed( rgba ) {
@@ -168,10 +168,11 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
+			value = value || options.value || SegmentDisplay.RoundedCorner;
 			if (collection.indexOf(value))
-				Widget.setValue( value );
+				return Widget.setValue( value );
 			else
-				Widget.setValue( SegmentDisplay.RoundedCorner );
+				return Widget.setValue( SegmentDisplay.RoundedCorner );
 		}
 
 		Board.Display.setParam( 'cornerType', options.value );
@@ -197,7 +198,9 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
+			value = value || options.value || 0;
 			current = (1==value) ? 1 : ( (-1==value) ? -1 : 0 );
+			return getValue();
 		}
 
 		function tick() {
@@ -237,9 +240,14 @@ ControlElements = function() {
 			return Widget.getValue();
 		}
 
+		function setValue( value ) {
+			return Widget.setValue( value );
+		}
+
 		return {
 			getPattern: getPattern,
-			getValue:   getValue
+			getValue:   getValue,
+			setValue:   setValue
 		}
 	} // CounterArity
 
@@ -258,6 +266,7 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
+			value = value || options.value || 0;
 			return Widget.setValue( value );
 		}
 
@@ -339,13 +348,14 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			value = parseInt( value ) || 0;
+			value = parseInt( value ) || options.value || 0;
 			// accept new value, but keep it in range
 			value = value % (getMax()+1);
 			// update internal widget value
 			Widget.setValue( value );
 			// visualize new value
 			Board.Display.setValue( value );
+			return getValue();
 		}
 
 		return {
@@ -381,9 +391,12 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value - delta );
+			return Widget.setValue( (value || options.value || 0) - delta );
 		}
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitAngle
 
 
@@ -394,7 +407,7 @@ ControlElements = function() {
 			min:          init.min   ||  0,
 			max:          init.max   || 50,
 			step:         init.step  ||  1,
-			currentValue: init.value || 20,
+			currentValue: init.value || 10,
 			change:       function( value ) { Board.Display.setParam( 'digitDistance', value ); }
 		};
 		var Widget = new ControlWidgets.Knob( '#wDigitDistance', options );
@@ -404,10 +417,13 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			return Widget.setValue( value || options.value || 0 );
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitDistance
 
 
@@ -427,10 +443,13 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			return Widget.setValue( value || options.value || 0 );
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // DigitHeight
 
 
@@ -450,11 +469,103 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			return Widget.setValue( value || options.value || 0 );
+		}
+
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
+	} // DigitWidth
+
+
+
+
+	function ProfileExport( init ) {
+		var options = {
+			clicked:  clicked,
+			payload:  payload
+		};
+		var Widget = new ControlWidgets.FileStorer( '#wProfileExport', options );
+
+		function clicked() {
+			// stop counter
+			Board.Controls.CounterState.setValue( 'off' );
+		}
+
+		function payload() {
+			var profile = {
+			  Controls: {
+					CounterArity    : Board.Controls.CounterArity.getValue(),
+					CounterState    : Board.Controls.CounterState.getValue(),
+					CounterValue    : Board.Controls.CounterValue.getValue(),
+					CornerType      : Board.Controls.CornerType.getValue(),
+					ColorActive     : Board.Controls.ColorActive.getChannels(),
+					ColorPassive    : Board.Controls.ColorPassive.getChannels(),
+					DigitHeight     : Board.Controls.DigitHeight.getValue(),
+					DigitWidth      : Board.Controls.DigitWidth.getValue(),
+					DigitAngle      : Board.Controls.DigitAngle.getValue(),
+					DigitDistance   : Board.Controls.DigitDistance.getValue(),
+					SegmentCount    : Board.Controls.SegmentCount.getValue(),
+					SegmentWidth    : Board.Controls.SegmentWidth.getValue(),
+					SegmentDistance : Board.Controls.SegmentDistance.getValue(),
+					TimerSpeed      : Board.Controls.TimerSpeed.getValue(),
+					TimerRange      : Board.Controls.TimerRange.getValue(),
+					WallType        : Board.Controls.WallType.getValue()
+				},
+			};
+			return JSON.stringify( profile );
 		}
 
 		return {}
-	} // DigitWidth
+	} // ProfileExport
+
+
+
+
+	function ProfileImport( init ) {
+		var options = {
+			clicked: clicked,
+			payload: payload
+		};
+		var Widget = new ControlWidgets.FileReader( '#wProfileImport', options );
+
+		function clicked() {
+		}
+
+		function payload( payload ) {
+			try {
+				var profile = $.parseJSON( payload );
+				// some basic sanity checks
+				if ( undefined==profile.Controls )
+					throw { message: 'No controls state stored inside that file.' };
+			} catch (err) { alert('Sorry, that file is not a counter profile!'); }
+			// set single values
+			for ( var control in profile.Controls ) {
+				var value = profile.Controls[control];
+				switch( control ) {
+					case 'WallType'        : Board.Controls.WallType.setValue( value );        break;
+					case 'TimerSpeed'      : Board.Controls.TimerSpeed.setValue( value );      break;
+					case 'TimerRange'      : Board.Controls.TimerRange.setValue( value );      break;
+					case 'CounterArity'    : Board.Controls.CounterArity.setValue( value );    break;
+					case 'CounterValue'    : Board.Controls.CounterValue.setValue( value );    break;
+					case 'CornerType'      : Board.Controls.CornerType.setValue( value );      break;
+					case 'ColorActive'     : Board.Controls.ColorActive.setChannels( value );  break;
+					case 'ColorPassive'    : Board.Controls.ColorPassive.setChannels( value ); break;
+					case 'DigitHeight'     : Board.Controls.DigitHeight.setValue( value );     break;
+					case 'DigitWidth'      : Board.Controls.DigitWidth.setValue( value );      break;
+					case 'DigitAngle'      : Board.Controls.DigitAngle.setValue( value );      break;
+					case 'DigitDistance'   : Board.Controls.DigitDistance.setValue( value );   break;
+					case 'SegmentCount'    : Board.Controls.SegmentCount.setValue( value );    break;
+					case 'SegmentWidth'    : Board.Controls.SegmentWidth.setValue( value );    break;
+					case 'SegmentDistance' : Board.Controls.SegmentDistance.setValue( value ); break;
+					case 'CounterState'    : Board.Controls.CounterState.setValue( value );    break;
+				}
+			}
+		}
+
+		return {}
+	} // ProfileImport
 
 
 
@@ -476,10 +587,12 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			if (collection.indexOf(value))
+			value = value || options.value || 0;
+			if ( collection.indexOf( value ) )
 				Widget.setValue( value );
 			else
 				Widget.setValue( SegmentDisplay.SevenSegment );
+			return getValue();
 		}
 
 		Board.Display.setParam( 'segmentCount', options.value );
@@ -508,10 +621,14 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			Widget.setValue( value || options.value || 0 );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // SegmentWidth
 
 
@@ -532,10 +649,14 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			return Widget.setValue( value );
+			Widget.setValue( value || options.value || 0 );
+			return getValue();
 		}
 
-		return {}
+		return {
+			getValue: getValue,
+			setValue: setValue
+		}
 	} // SegmentDistance
 
 
@@ -559,9 +680,10 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			value = parseInt( value ) || options.value;
+			value = parseInt( value ) || options.value || 0;
 			Widget.setValue( value );
 			Board.Timer.Range = value;
+			return getValue();
 		}
 
 		return {
@@ -592,9 +714,10 @@ ControlElements = function() {
 		}
 
 		function setValue( value ) {
-			value = parseInt( value ) || options.value;
+			value = parseInt( value ) || options.value || 0;
 			Widget.setValue( value );
 			Board.Timer.Speed = value;
+			return getValue();
 		}
 
 		return {
@@ -652,16 +775,29 @@ ControlElements = function() {
 			change: function(event) { setValue( event.target.value || 'assets/background/wall-02.jpg' ); }
 		};
 		var Widget = new ControlWidgets.ButtonSet( '#wWallType', options );
+		setValue( options.value );
+
+		function getValue() {
+			if ( Widget )
+				return Widget.getValue();
+			else
+				return options.value;
+		}
 
 		function setValue( value ) {
-				$( 'body' ).css( 'background', 'url("' + value + '") repeat' );
+			value = value || options.value || 0;
+			$( 'body' ).css( 'background', 'url("' + value + '") repeat' );
+			return getValue();
 		}
 
 		return {
-			Widget:   Widget,
-			setValue: setValue
+			getValue: getValue,
+			setValue: setValue,
+			Widget:   Widget
 		}
 	} // WallType
+
+
 
 
 	return {
@@ -678,6 +814,8 @@ ControlElements = function() {
 		DigitDistance:    DigitDistance,
 		DigitHeight:      DigitHeight,
 		DigitWidth:       DigitWidth,
+		ProfileExport:    ProfileExport,
+		ProfileImport:    ProfileImport,
 		SegmentCount:     SegmentCount,
 		SegmentWidth:     SegmentWidth,
 		SegmentDistance:  SegmentDistance,

@@ -218,6 +218,17 @@
 
 
 
+.controls .control.button {
+	margin-right: 6px;
+}
+.controls .control.button a img {
+  width: 32px;
+	height: 32px;
+	padding: 4px;
+	border: 2px ridge rgba(245,245,245,1);
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+}
 
 
 
@@ -259,7 +270,7 @@
 	border: 2px ridge rgba(245,245,245,1);
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
-	background: none; 
+	background: none;
 }
 .controls .control.color .ui-slider-horizontal {
 	width: 80px;
@@ -284,6 +295,9 @@
 	box-shadow: 2px 2px 5px #4a5056, 2px 2px 3px gray;
 	border-radius: 15px;
 }
+#wCounterTrigger:hover {
+	cursor: pointer;
+}
 #wCounterValue {}
 #wCounterSleep {}
 #wCounterVariance {}
@@ -301,14 +315,7 @@
 #wTimerSpeed {}
 #wTimerRange {}
 #wToggleFullscreen {
-	left: 20px;
-}
-#wToggleFullscreen img {
-  width: 64px;
-	height: 64px;
-	border: 2px ridge rgba(245,245,245,1);
-	border-radius: 5px;
-	box-shadow: 1px 1px 1px #4a5056, 1px 1px 3px gray;
+	left: 54px;
 }
 #wWallType {
 	margin: 0 1px;

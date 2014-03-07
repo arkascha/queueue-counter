@@ -9,7 +9,7 @@ ControlWidgets = function() {
 		// bind change event
 		hotspot.buttonset().bind( 'change', options.change );
 		// activate specified option
-		hotspot.find( '[value='+options.value+']+label' ).click();
+		hotspot.find( '[value="'+options.value+'"]+label' ).click();
 		hotspot.buttonset( 'refresh' );
 
 		function getValue() {
@@ -18,8 +18,9 @@ ControlWidgets = function() {
 		}
 
 		function setValue( value ) {
-			hotspot.find( '[value='+value+']+label' ).click();
+			hotspot.find( '[value="'+value+'"]+label' ).click();
 			hotspot.buttonset( 'refresh' );
+			return getValue();
 		}
 
 		return {
@@ -27,6 +28,34 @@ ControlWidgets = function() {
 			setValue: setValue
 		}
 	} // ButtonSet
+
+
+
+
+	function Button( selector, options ) {
+		var options = $.extend({
+			click: function(){}
+		}, options||{} );
+		var widget  = $( selector );
+		var hotspot = $( selector ).find( '.hotspot img' );
+		hotspot.bind( 'click', click );
+
+		function click() {
+			clicked();
+			options.click();
+		}
+
+		function clicked() {
+			// flash button by changing the background color for 100 msecs
+			widget.css( 'background-color', 'whitesmoke' );
+			setTimeout( function(){ widget.css( 'background-color', 'transparent' ); }, 100 );
+		}
+
+		return {
+			click:   click,
+			clicked: clicked
+		}
+	} // Button
 
 
 
@@ -129,6 +158,7 @@ ControlWidgets = function() {
 			Channels['Blue' ].setValue( channels.blue  );
 			Channels['Alpha'].setValue( channels.alpha );
 			$(Preview).css( 'background-color', rgba );
+			options.change( rgbaFromChannels( channels ) );
 		}
 
 		function getChannels() {
@@ -147,6 +177,7 @@ ControlWidgets = function() {
 			Channels['Blue' ].setValue( channels.blue  );
 			Channels['Alpha'].setValue( channels.alpha );
 			$(Preview).css( 'background-color', rgba );
+			options.change( rgbaFromChannels( channels ) );
 		}
 
 		function rgbaFromChannels ( channels ) {
@@ -199,6 +230,104 @@ ControlWidgets = function() {
 
 
 
+	function FileReader( selector, options ) {
+		var options = $.extend({
+			clicked:  function(){},
+			payload:  function(){},
+			selected: function(){}
+		}, options||{} );
+		var content = $( selector ).html(),
+				widget = convert( selector );
+
+		function clicked( event ) {
+			event.stopPropagation();
+			// highlight button as user feedback
+			highlight();
+			// raise the file selection dialog
+			widget.find( 'form[name='+selector+'] input:file').get(0).click();
+			// signal action to element
+			options.clicked();
+		}
+
+		function convert( selector ) {
+			var widget = $( selector );
+			// create new content for widget
+			var hotspot = $( '<a class="hotspot">' + content + '</a>' ).bind( 'click', clicked );
+			var element = $( '<input type="file" style="display:none;" />' );
+			element.fileReaderJS( { accept: false,
+															readAsDefault: 'BinaryString',
+															on: { load: selected } } );
+			// replace initial content of widget
+			widget.empty().append( $('<form name="'+selector+'"/>').append(element) ).append(hotspot);
+			return widget;
+		}
+
+		function highlight() {
+			// flash button by changing the background color for 100 msecs
+			widget.css( 'background-color', 'whitesmoke' );
+			setTimeout( function(){ widget.css( 'background-color', 'transparent' ); }, 100 );
+		}
+
+		function reload( input ) {
+			// reconstruct unconverted state
+			widget.empty().append( content );
+			// re-convert the widget again
+			widget = convert( selector );
+		}
+
+		function selected( event, file ) {
+			// recreate the input tag to have a fresh one, otherwise we cannot load a single file _twice_
+			input = reload( widget.find( 'form[name='+selector+'] input:file') );
+			// process payload
+			options.payload( event.target.result );
+			// signal event to controlling element
+			options.selected();
+		}
+
+		return {}
+	} // FileReader
+
+
+
+
+	function FileStorer( selector, options ) {
+		var options = $.extend({
+			clicked: function(){},
+			payload: function(){}
+		}, options||{} );
+		var widget  = convert( selector );
+
+		function clicked() {
+			// highlight button as user feedback
+			highlight();
+			// offer stringified profile data as file to download
+			location.href = 'data:application/download,' + encodeURIComponent( options.payload()||'' );
+			// signal action to element
+			options.clicked();
+		}
+
+		function convert( selector ) {
+			var widget = $( selector );
+			widget.bind( 'click', clicked );
+			// insert new content into widget
+			var hotspot = $( '<a class="hotspot" download="queueue-profile.json">' + widget.html() + '</a>' );
+			// replace initial content of widget
+			widget.empty().append( hotspot );
+			return widget;
+		}
+
+		function highlight() {
+			// flash button by changing the background color for 100 msecs
+			widget.css( 'background-color', 'whitesmoke' );
+			setTimeout( function(){ widget.css( 'background-color', 'transparent' ); }, 100 );
+		}
+
+		return {}
+	} // FileStorer
+
+
+
+
 	function Knob( selector, options ) {
 		var current = 0,
 				hotspot  = $( selector ).find( 'div.knob-controller' );
@@ -216,7 +345,7 @@ ControlWidgets = function() {
 				// compute the current value
 				var value = valueFromRatio( ratio );
 				// store new value
-				storeValue( value );
+				setValue( value );
 				// call change callback
 				options.change( value );
 			}
@@ -250,13 +379,15 @@ ControlWidgets = function() {
 			return current;
 		}
 
-		function storeValue( value ) {
+		function setValue( value ) {
 			current = value;
+			options.change( value );
 			return getValue();
 		}
 
 		return {
-			getValue: getValue
+			getValue: getValue,
+			setValue: setValue
 		}
 	} // Knob
 
@@ -273,6 +404,7 @@ ControlWidgets = function() {
 
 		function setValue( value ) {
 			hotspot.slider( 'value', value );
+			return getValue();
 		}
 
 		return {
@@ -300,7 +432,8 @@ ControlWidgets = function() {
 		}
 
 		function setValue( value ) {
-			return hotspot.labeledslider( 'value', value );
+			hotspot.labeledslider( 'value', value );
+			return getValue();
 		}
 
 		return {
@@ -364,6 +497,7 @@ ControlWidgets = function() {
 
 		function setValue( value ) {
 			hotspot.spinner( 'value', value );
+			return getValue();
 		}
 
 		return {
@@ -379,9 +513,9 @@ ControlWidgets = function() {
 
 	function Switch( selector, options ) {
 		var options = $.extend( {
-			value: 1,
-			change: function( event,ui ){},
-			size: 40,
+			value:   1,
+			change:  function( event,ui ){},
+			size:    40,
 			strings: ['-1-','-0-']
 		}, options||{} );
 		// morph html input into a jquery ui hotspot
@@ -392,7 +526,7 @@ ControlWidgets = function() {
 		hotspot.data( 'switch' ).trigger('switch:slide', options.value);
 
 		function getValue() {
-			return hotspot.switchify( 'val' );
+			return hotspot.switchify().val();
 		}
 
 		function setValue( value ) {
@@ -409,10 +543,13 @@ ControlWidgets = function() {
 
 
 	return {
+		Button:            Button,
 		ButtonSet:         ButtonSet,
 		ButtonWithLight:   ButtonWithLight,
 		ButtonWithState:   ButtonWithState,
 		ColorChooser:      ColorChooser,
+		FileReader:        FileReader,
+		FileStorer:        FileStorer,
 		Knob:              Knob,
 		Slider:            Slider,
 		SliderWithLabels:  SliderWithLabels,

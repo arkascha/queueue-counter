@@ -1,7 +1,7 @@
 Board = function() {
 	var Controls = {
 		CounterArity    : {},
-		CounterHistory : {},
+		CounterHistory  : {},
 		CounterState    : {},
 		CounterTrigger  : {},
 		CounterValue    : {},
@@ -12,6 +12,8 @@ Board = function() {
 		DigitWidth      : {},
 		DigitAngle      : {},
 		DigitDistance   : {},
+		ProfileExport   : {},
+		ProfileImport   : {},
 		SegmentCount    : {},
 		SegmentWidth    : {},
 		SegmentDistance : {},
@@ -43,13 +45,15 @@ Board = function() {
 		this.Controls.DigitWidth       = new ControlElements.DigitWidth      ( { value:10 } );
 		this.Controls.DigitAngle       = new ControlElements.DigitAngle      ( { value:7 } );
 		this.Controls.DigitDistance    = new ControlElements.DigitDistance   ( { value:10 } );
+		this.Controls.ProfileExport    = new ControlElements.ProfileExport   ( { } );
+		this.Controls.ProfileImport    = new ControlElements.ProfileImport   ( { } );
 		this.Controls.SegmentCount     = new ControlElements.SegmentCount    ( { value:SegmentDisplay.SevenSegment  } );
 		this.Controls.SegmentWidth     = new ControlElements.SegmentWidth    ( { value:5 } );
 		this.Controls.SegmentDistance  = new ControlElements.SegmentDistance ( { value:1 } );
 		this.Controls.TimerSpeed       = new ControlElements.TimerSpeed      ( { value:1 } );
 		this.Controls.TimerRange       = new ControlElements.TimerRange      ( { value:0 } );
 		this.Controls.ToggleFullscreen = new ControlElements.ToggleFullscreen( { });
-		this.Controls.WallType         = new ControlElements.WallType        ( { value:3 } );
+		this.Controls.WallType         = new ControlElements.WallType        ( { value:'assets/background/wall-02.jpg' } );
 		// blank the display initially
 		this.Display.setBlank();
 	}
