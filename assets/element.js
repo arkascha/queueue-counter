@@ -733,8 +733,8 @@ ControlElements = function() {
 			toggled:      toggled
 		};
 		var Widget = new ControlWidgets.ButtonWithState( '#wToggleFullscreen', options );
-		Target.on( 'fscreenopen',  function(){ Target.find('.hotspot img').attr('src','assets/img/fullscreen-off.png')} );
-		Target.on( 'fscreenclose', function(){ Target.find('.hotspot img').attr('src','assets/img/fullscreen-on.png' )} );
+		Target.on( 'fscreenopen',  function(){ Widget.find('.hotspot img').attr('src','assets/img/fullscreen-off.png')} );
+		Target.on( 'fscreenclose', function(){ WIdget.find('.hotspot img').attr('src','assets/img/fullscreen-on.png' )} );
 
 		function switchOff() {
 			toggle( false );
