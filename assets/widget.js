@@ -301,7 +301,7 @@ ControlWidgets = function() {
 			// highlight button as user feedback
 			highlight();
 			// offer stringified profile data as file to download
-			location.href = 'data:application/download,' + encodeURIComponent( options.payload()||'' );
+			widget.find( '.hotspot' ).href = 'data:text/json,' + encodeURIComponent( options.payload()||'' );
 			// signal action to element
 			options.clicked();
 		}
@@ -310,7 +310,7 @@ ControlWidgets = function() {
 			var widget = $( selector );
 			widget.bind( 'click', clicked );
 			// insert new content into widget
-			var hotspot = $( '<a class="hotspot" download="queueue-profile.json">' + widget.html() + '</a>' );
+			var hotspot = $( '<a href="#" class="hotspot" download="queueue-profile.txt">' + widget.html() + '</a>' );
 			// replace initial content of widget
 			widget.empty().append( hotspot );
 			return widget;
