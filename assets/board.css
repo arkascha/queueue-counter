@@ -11,7 +11,7 @@ body {
 	min-height: 800px;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+/* 	overflow: hidden; */
 	background: url("background/wall-02.jpg") repeat;
 	-webkit-transition: background-image 1s;
 	-khtml-transition:  background-image 1s;
