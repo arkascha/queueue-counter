@@ -1,4 +1,5 @@
 Board = function() {
+	// the set of controls available on the board
 	var Controls = {
 		CounterArity    : {},
 		CounterHistory  : {},
@@ -85,19 +86,34 @@ Board = function() {
 			this.Controls.CounterValue.setValue( value );
 	}
 
+	function setZoomLevel() {
+		// compute zoom factor to fit board into the available space
+		var xFactor = Math.floor ( $( window ).width() ) / 1920;
+		var yFactor = Math.floor ( $( window ).height()) / 1200;
+		var factor  = Math.min ( xFactor, yFactor );
+		$( 'body' ).css( 'zoom', factor );
+	}
+
 	return {
-		Controls: Controls,
-		Display:  Display,
-		State:    State,
-		Timer:    Timer,
-		init:     init,
-		getState: getState,
-		setState: setState,
-		getValue: getValue,
-		setValue: setValue
+		Controls:     Controls,
+		Display:      Display,
+		State:        State,
+		Timer:        Timer,
+		init:         init,
+		getState:     getState,
+		setState:     setState,
+		getValue:     getValue,
+		setValue:     setValue,
+		setZoomLevel: setZoomLevel
 	}
 
 }(); // Board
+
+$( document ).ready( function() {
+	Board.setZoomLevel();
+	// register handler to adapt to window resizing events
+	$( window ).resize( Board.setZoomLevel );
+} );
 
 $( window ).load( function() {
 	// initialize board elements (display and controls)
